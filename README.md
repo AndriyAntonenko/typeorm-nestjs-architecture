@@ -4,7 +4,7 @@ This is my investigation, how to use Typeorm with Nest.js. The main goal - make 
 
 
 **./src/domain/types/user.ts**
-```
+```ts
 export interface User {
   id: string;
   name: string;
@@ -29,7 +29,7 @@ export interface UserResponseShape {
 
 Create interface for data storage
 **./src/domain/types/data-sources.ts**
-```
+```ts
 import { User } from './user';
 
 export interface UserDataStorage {
@@ -43,7 +43,7 @@ export interface UserDataStorage {
 Create typeorm entity that implements interface of our domain user entity
 
 **./src/repository/user/user.orm-entity.ts**
-```
+```ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -81,7 +81,7 @@ export class UserOrmEntity implements User {
 Then we can create typeorm repository that implements `UserDataStorage` interface
 
 **./src/repository/user/user.orm-repository.ts**
-```
+```ts
 import { Repository, EntityRepository } from 'typeorm';
 import { UserOrmEntity } from './user.orm-entity';
 import { UserDataStorage } from '../../domain/types/data-sources';
@@ -105,7 +105,7 @@ export class UserOrmRepository
 And finally we can add dependency for `UserService`
 
 **./src/repository/user/user.orm-repository.ts**
-```
+```ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -131,7 +131,7 @@ export class UserService {
 As far, as our service depends on interface, we can test our business logic:
 **src/domain/_\_tests__/user.service.spec.ts**
 
-```
+```ts
 import { UserService } from '../services/user.service';
 import { UserDataStorage } from '../types/data-sources';
 import { User } from '../types/user';
