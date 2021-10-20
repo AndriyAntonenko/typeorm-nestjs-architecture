@@ -21,16 +21,17 @@ describe('UserService', () => {
   });
 
   describe('createUser', () => {
+    const createUserPayload = {
+      username: 'test@test.com',
+      name: 'Tester',
+      password: '123qwe',
+    };
     it('should return user response shape', async () => {
-      const newUser = await userService.createUser({
-        username: 'test@test.com',
-        name: 'Tester',
-        password: '123qwe',
-      });
+      const newUser = await userService.createUser(createUserPayload);
 
       expect(newUser).toMatchObject({
-        username: 'test@test.com',
-        name: 'Tester',
+        username: createUserPayload.username,
+        name: createUserPayload.name,
         id: expect.any(String),
       });
     });
